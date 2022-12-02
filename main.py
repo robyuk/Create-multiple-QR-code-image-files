@@ -9,13 +9,11 @@ pip install pillow
 import qrcode
 
 with open('urls.txt') as urlFile:
-  content = urlFile.read()
+  lines = urlFile.readlines()
 
-urls=content.split('\n')
-
-for url in urls:
+for url in lines:
 
   img = qrcode.make(url)
-  filename=url.split('//')[1]
+  filename=url.split('//')[1]  #Strip the 'https://'' to make the filename
   img.save(f'{filename}.png')
 
