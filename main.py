@@ -1,12 +1,52 @@
+#! /usr/bin/env python3
+"""
+Finds a QR code in an image and scans it
+
+Requires CV2, install like this:
+pip install opencv-python
+"""
+
 import cv2
+import webbrowser
+image=cv2.imread('qr.png')
+detector=cv2.QRCodeDetector()
+url, coords, pixels = detector.detectAndDecode(image)
 
-image=cv2.imread('humans.jpeg',1)
-faceCascade=cv2.CascadeClassifier('faces.xml')
+print(pixels, url, coords )
+webbrowser.open(url)
 
-faces=faceCascade.detectMultiScale(image,1.1, 4)
-#print(faces)
+'''
+""" To use an image captured from the camera, 
+copy the code below to a device with python3 and a camera:"""
 
-for (x,y,w,h) in faces:
-  cv2.rectangle(image,(x,y),(x+w,y+h),(255,255,255),4)
+#! /usr/bin/env python3
+"""
+Finds a QR code in an image captured from the camera and decodes it
 
-cv2.imwrite('humanFaces.jpeg', image)
+Requires CV2, install like this:
+pip install opencv-python
+"""
+
+import cv2
+import webbrowser
+
+video=cv2.VideoCapture(1)  # the integer may be 0 or 2 depending on your hardware configuration
+success,frame = video.read()
+detector=cv2.QRCodeDetector()
+
+while success:
+    url, coords, pixels = detector.detectAndDecode(frame)
+    if url:
+        webbrowser.open
+        break
+        
+    cv2.imshow('frame', frame)
+
+    if cv2.waitKey(1) == ord('q'):
+        break
+    success, frame = video.read()
+
+video.release()
+cv2.destroyAllWindows()
+
+'''
