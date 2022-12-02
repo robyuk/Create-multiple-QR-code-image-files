@@ -1,11 +1,17 @@
 #! /usr/bin/env python3
 """
-Finds a QR code in an image and scans it
+Creates a QR code in an image file
 
-Requires CV2, install like this:
-pip install opencv-python
+Requires the pillow library, install like this:
+pip install pillow
 """
 
+import qrcode
+
+img = qrcode.make('https://www.raycomputing.com')
+img.save('qr.png')
+
+# Test the QR code
 import cv2
 import webbrowser
 image=cv2.imread('qr.png')
